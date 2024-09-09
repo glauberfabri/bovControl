@@ -17,8 +17,8 @@ beforeAll(async () => {
   const res = await request(app)
     .post('/api/auth/register')
     .send({
-      name: 'admin',
-      farmName: 'admin',
+      name: 'Test Farmer',
+      farmName: 'Test Farm',
       distance: 10,
       password: 'password123',
     });
@@ -44,6 +44,7 @@ describe('Auth API', () => {
 
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty('token');
+    expect(res.body).toHaveProperty('name', 'Another Farmer');
   });
 
   it('should login with valid credentials', async () => {
@@ -56,6 +57,7 @@ describe('Auth API', () => {
 
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty('token');
+    expect(res.body.token).toBeTruthy(); // Verifica se o token foi gerado
   });
 
   it('should not login with invalid credentials', async () => {
@@ -69,7 +71,6 @@ describe('Auth API', () => {
     expect(res.statusCode).toBe(401);
     expect(res.body).toHaveProperty('message');
     expect(res.body.message).toBe('Credenciais inválidas');
-
   });
 
   it('should not login with a non-existing farm', async () => {
@@ -83,6 +84,5 @@ describe('Auth API', () => {
     expect(res.statusCode).toBe(401);
     expect(res.body).toHaveProperty('message');
     expect(res.body.message).toBe('Credenciais inválidas');
-
   });
 });

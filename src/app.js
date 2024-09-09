@@ -7,6 +7,8 @@ const dotenv = require('dotenv');
 const milkProductionRoutes = require('./routes/milkProductionRoutes');
 const farmerRoutes = require('./routes/farmerRoutes');
 const authRoutes = require('./routes/authRoutes');
+const volumeRoutes = require('./routes/volumeRoutes'); // Nova rota de volume de leite
+const priceRoutes = require('./routes/priceRoutes'); // Nova rota de preço do leite
 const errorHandler = require('./middleware/errorMiddleware'); // Middleware para tratamento de erros
 
 dotenv.config();
@@ -32,6 +34,8 @@ app.get('/', (req, res) => {
 app.use('/api/farmers', farmerRoutes); // Rotas de fazendeiros
 app.use('/api/auth', authRoutes); // Rotas de autenticação
 app.use('/api/milk-productions', milkProductionRoutes); // Rotas de produção de leite
+app.use('/api/volume', volumeRoutes); // Nova rota para consulta de volume de leite
+app.use('/api/price', priceRoutes); // Nova rota para consulta de preço do leite
 
 // Middleware de tratamento de erros
 app.use(errorHandler);
